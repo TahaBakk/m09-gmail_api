@@ -32,7 +32,7 @@ public class Cutremail2 {
         // Step1
         System.out.println("\n 1st ===> setup Mail Server Properties..");
         mailServerProperties = System.getProperties();
-        mailServerProperties.put("mail.smtp.port", "587");
+        mailServerProperties.put("mail.smtp.port", "587");//puerto a usar
         mailServerProperties.put("mail.smtp.auth", "true");
         mailServerProperties.put("mail.smtp.starttls.enable", "true");
         System.out.println("Mail Server Properties have been setup successfully..");
@@ -40,21 +40,21 @@ public class Cutremail2 {
         // Step2
         System.out.println("\n\n 2nd ===> get Mail Session..");
         getMailSession = Session.getDefaultInstance(mailServerProperties, null);
-        generateMailMessage = new MimeMessage(getMailSession);
-        generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("dremon@iespoblenou.org"));
-        generateMailMessage.setSubject("Nova conta per a proves");
-        String emailBody = "Això és el futur spam! " + "<br><br> Records!, <br>Dionis";
-        generateMailMessage.setContent(emailBody, "text/html");
+        generateMailMessage = new MimeMessage(getMailSession);//genera el mensaje
+        generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("y2793623b@iespoblenou.org"));//cuenta a gmail enviar
+        generateMailMessage.setSubject("Nova conta per a proves");//titulo
+        String emailBody = "Això és el futur spam! " + "<br><br> Records!, <br>Dionis";//mensaje a enviar
+        generateMailMessage.setContent(emailBody, "text/html");//estilo de fitxero (sino se pone lo envia en texto plano)
         System.out.println("Mail Session has been created successfully..");
 
         // Step3
         System.out.println("\n\n 3rd ===> Get Session and Send mail");
-        Transport transport = getMailSession.getTransport("smtp");
+        Transport transport = getMailSession.getTransport("smtp");//Tipo de protocolo en el que se enviara
 
         // Enter your correct gmail UserID and Password
         // if you have 2FA enabled then provide App Specific Password
-        transport.connect("smtp.gmail.com","dremon.iespoblenou","mirandolamon");
-        transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
-        transport.close();
+        transport.connect("smtp.gmail.com","dremon.iespoblenou@gmail.com","mirandolamon");// SERVIDOR , tu cuenta, password de la cuenta
+        transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());//enviar el mensaje
+        transport.close();//la cerramos
     }
 }
